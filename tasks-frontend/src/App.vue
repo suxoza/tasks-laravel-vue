@@ -60,7 +60,7 @@ const menuItems = [
     <div
       v-if="userStore.isAuthenticated"
       ref="sideNav"
-      class="bg-white z-10 w-64 h-screen fixed rounded-none border-r border-gray-200"
+      class="bg-white z-10 w-64 h-screen fixed rounded-none border-r border-gray-200 mt-8"
       :class="{ hidden: !menuVisibilityStatus }"
     >
       <div class="p-4 space-y-4">
@@ -81,8 +81,8 @@ const menuItems = [
       </div>
     </div>
     <div
-      class="lg:pl-4 mt-12 lg:flex lg:flex-col lg:w-100% mt-5 mx-2"
-      :class="{ 'lg:ml-64': menuVisibilityStatus && !['login', 'register'].includes(route?.name) }"
+      class="mt-16 lg:flex lg:flex-col lg:w-100% mt-5 mx-2"
+      :class="{ 'lg:pl-4 lg:ml-64': menuVisibilityStatus && !['login', 'register'].includes(route?.name) }"
     >
       <router-view />
     </div>

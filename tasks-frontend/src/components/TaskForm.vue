@@ -30,7 +30,7 @@ const emits = defineEmits(['submit'])
 const optionalFields = reactive<TaskType>({
   date_from: props.task?.date_from_new,
   due_date: props.task?.due_date_new,
-  is_active: props.task?.is_active === 1 ? true : false
+  is_active: props.task?.is_active === undefined || props.task?.is_active === 1 ? true : false
 })
 
 // methods

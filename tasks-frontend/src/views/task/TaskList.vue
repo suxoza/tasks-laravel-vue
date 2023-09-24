@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // vue
 import { ref, ChangeEventHandler, computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 // interfaces
 import { TaskType } from '@/interfaces/task/Task'
 // stores
@@ -17,6 +18,7 @@ import { useGlobalStore } from '@/stores/globalStore'
 import { toast } from 'vue3-toastify'
 
 // vars
+const route = useRoute()
 const taskStore = useTaskStore()
 const globalStore = useGlobalStore()
 const taskList = computed(() => taskStore.getTasks)
@@ -60,13 +62,10 @@ const setStatus = async (event: ChangeEventHandler<HTMLInputElement>, task: Task
   }
 }
 
-const is_selected = ref(false)
 let current_page = 1
+let is_selected = ref(false)
 const fetchTasks = ($state: any) => {
-  if (is_selected.value && $state) {
-    $state?.complete()
-    return (is_selected.value = false)
-  }
+  is_selected.value = true
   getTaskList(current_page).then((response: { last_page: number; total: number; data: TaskType[] }) => {
     taskStore.prependTask(response.data)
     if (response.last_page === current_page || response.total === 0) {
@@ -77,9 +76,9 @@ const fetchTasks = ($state: any) => {
 }
 
 onMounted(() => {
-  console.log('first fetch')
-  fetchTasks(null)
-  is_selected.value = true
+  setTimeout(() => {
+    if (!is_selected.value) fetchTasks(null)
+  }, 500)
 })
 </script>
 

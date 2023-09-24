@@ -19,6 +19,9 @@ export const useTaskStore = defineStore({
       const filteredTasks = tasks?.filter((task: TaskType) => !uniqueTasks.includes(task.id)) || []
       this.tasks = [...filteredTasks, ...this.tasks]
     },
+    clear() {
+      this.tasks = []
+    },
     deleteTask(task_id: number) {
       this.tasks = this.tasks.filter((item: TaskType) => item.id !== task_id)
     },
