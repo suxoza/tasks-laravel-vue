@@ -1,0 +1,38 @@
+version: "3"
+services:
+  backend:
+    build:
+      context: ./tasks-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./tasks-backend:/var/www/html
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=laravel_tasks
+      - DB_USERNAME=laravel_tasks_user
+      - DB_PASSWORD=laravel_tasks_user
+    depends_on:
+      - mysql
+
+  frontend:
+    build:
+      context: ./tasks-frontend
+    ports:
+      - "5173:5173"
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=laravel_tasks_user
+      - MYSQL_DATABASE=laravel_tasks
+      - MYSQL_USER=laravel_tasks_user
+      - MYSQL_PASSWORD=laravel_tasks_user
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
